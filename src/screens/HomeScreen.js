@@ -6,11 +6,12 @@ import {
 } from 'react-native'
 
 import Button from '../components/Button'
+import Titulo from '../components/Titulo';
 
 const HomeScreen = props => {
     return (
         <View style={styles.container}>
-            <Text style={styles.logo} >CalisTimer</Text>
+            <Titulo label=' CalisTimer' style={styles.titulo} />
             <Button style={styles.btn} text='EMOM' onPress={() => props.navigation.navigate('EMOM')} />
             <Button style={styles.btn} text='AMRP' onPress={() => props.navigation.navigate('EMOM')} />
             <Button style={styles.btn} text='Isometria' onPress={() => props.navigation.navigate('EMOM')} />
@@ -27,11 +28,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF4151',
         flex: 1,
     },
-    logo: {
-        fontFamily: 'Ubuntu-Bold',
-        fontSize: 48,
-        textAlign: 'center',
-        color: '#ffffff',
+    titulo: {
         marginBottom: 111,
         marginTop: 111
     },

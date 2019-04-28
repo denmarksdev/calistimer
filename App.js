@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
-import EMOMScreen from './src/screens/EMOMScree';
+import EMOMScreen from './src/screens/EMOMScreen';
 
 import {
   createStackNavigator,
