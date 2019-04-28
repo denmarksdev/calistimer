@@ -1,18 +1,18 @@
 export const alertas = [
     {
         id: 0,
-        label: 'Desligado'
+        label: '0s'
     },
     {
-        id: 1,
+        id: 15,
         label: '15s'
     },
     {
-        id: 2,
+        id: 30,
         label: '30s'
     },
     {
-        id: 3,
+        id: 45,
         label: '45s'
     },
 ]

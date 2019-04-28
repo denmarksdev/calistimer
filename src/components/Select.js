@@ -18,15 +18,28 @@ class Select extends React.Component {
         this.setState({ selectedOption: this.props.value })
     }
 
-    setSelectedStyle = (selectedOption, option) => {
-        return selectedOption === option
+    setSelectedStyle = option => {
+        return this.checkItem(option)
             ? styles.optionSelect
             : styles.option
     }
 
-    onSelectedOption = selectedOption => () => {
-        this.setState({ selectedOption })
-        this.props.onSelected(selectedOption)
+    onSelectedOption = opt => () => {
+
+        let newSelectedOption = opt
+
+        if (Array.isArray(this.state.selectedOption)) {
+            const index = this.state.selectedOption.indexOf(opt)
+            if (index >= 0) {
+                newSelectedOption = [...this.state.selectedOption]
+                newSelectedOption.splice(index, 1)
+            } else {
+                newSelectedOption = [...this.state.selectedOption,opt]
+            }
+        }
+
+        this.setState({ selectedOption:newSelectedOption })
+        this.props.onSelected(newSelectedOption)
     }
 
     getOptionValues = option => {
@@ -43,10 +56,17 @@ class Select extends React.Component {
 
         return { id, label }
     }
+    checkItem = item => {
+        const { selectedOption } = this.state
+        if (Array.isArray(selectedOption)) {
+            return selectedOption.indexOf(item) >= 0
+        }
+        return selectedOption === item
+
+    }
 
     render() {
         const { options, label } = this.props
-        const { selectedOption } = this.state
         return (
             <View>
                 <Text style={styles.title} >{label}</Text>
@@ -56,7 +76,7 @@ class Select extends React.Component {
                             const { label, id } = this.getOptionValues(option)
                             return (
                                 <TouchableOpacity key={index} onPress={this.onSelectedOption(id)} >
-                                    <Text style={this.setSelectedStyle(selectedOption, id)} >{label}</Text>
+                                    <Text style={this.setSelectedStyle(id)} >{label}</Text>
                                 </TouchableOpacity>
                             )
                         })
@@ -82,26 +102,26 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Ubuntu-Regular',
         fontSize: 24,
-        paddingTop:10,
-        paddingBottom:10
+        paddingTop: 10,
+        paddingBottom: 10
     },
     options: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        
+
     },
     option: {
         fontSize: 20,
         fontFamily: 'Ubuntu-Regular',
-        padding:10
+        padding: 10
     },
     optionSelect: {
         fontSize: 20,
         fontFamily: 'Ubuntu-Regular',
         color: '#fff',
         backgroundColor: 'rgba(255,255,255, 0.6)',
-        padding:10
+        padding: 10
     },
 })
 

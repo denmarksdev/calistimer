@@ -10,6 +10,7 @@
     "react": "16.8.3",
     "react-native": "0.59.5",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-sound": "^0.10.12",
     "react-navigation": "^3.9.1"
   },
   "devDependencies": {
@@ -26,7 +27,8 @@
   "rnpm": {
     "assets": [
       "./assets/fonts/",
-      "./assets/images/"
+      "./assets/images/",
+      "./assets/sounds/"
     ]
   }
 }
