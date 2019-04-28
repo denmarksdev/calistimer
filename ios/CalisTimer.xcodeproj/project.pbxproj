@@ -49,6 +49,9 @@
 		A7DA3AB0C224491EA318E745 /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D13D0E229AC4229B8BDE27B /* Ubuntu-Regular.ttf */; };
 		C44389333D684A0B8DC114BC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07683BC2412B4F1D9028F56F /* libRNGestureHandler.a */; };
 		EA699F6414BA4A6AB5240F25 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 268FA96CE56842CBA2AEB2F0 /* libRNGestureHandler-tvOS.a */; };
+		396C2DB70BA64B44BE1925DA /* BtnPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 318F14F986D845C7BB0718CB /* BtnPlay.png */; };
+		B5B7E36BECDE443BA7D3EC91 /* btnStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 192588CA345E4CF8B70D1991 /* btnStop.png */; };
+		E84CFEE0B13B45BAA909B9AB /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C050B9F4AF149BB8D105E22 /* settings.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -367,6 +370,9 @@
 		CB39DC12CB4D4C20B5E69EAB /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; name = "RNGestureHandler.xcodeproj"; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		07683BC2412B4F1D9028F56F /* libRNGestureHandler.a */ = {isa = PBXFileReference; name = "libRNGestureHandler.a"; path = "libRNGestureHandler.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		268FA96CE56842CBA2AEB2F0 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; name = "libRNGestureHandler-tvOS.a"; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		318F14F986D845C7BB0718CB /* BtnPlay.png */ = {isa = PBXFileReference; name = "BtnPlay.png"; path = "../assets/images/BtnPlay.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		192588CA345E4CF8B70D1991 /* btnStop.png */ = {isa = PBXFileReference; name = "btnStop.png"; path = "../assets/images/btnStop.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4C050B9F4AF149BB8D105E22 /* settings.png */ = {isa = PBXFileReference; name = "settings.png"; path = "../assets/images/settings.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -646,6 +652,9 @@
 				05962FA2C28A46D1878BE6FE /* Ubuntu-Medium.ttf */,
 				91986105826D4B98B5DC03B6 /* Ubuntu-MediumItalic.ttf */,
 				5D13D0E229AC4229B8BDE27B /* Ubuntu-Regular.ttf */,
+				318F14F986D845C7BB0718CB /* BtnPlay.png */,
+				192588CA345E4CF8B70D1991 /* btnStop.png */,
+				4C050B9F4AF149BB8D105E22 /* settings.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1105,6 +1114,9 @@
 				FBA477F6FB994B6E8F9A0CC5 /* Ubuntu-Medium.ttf in Resources */,
 				48A1DFDE47D742009DEB9765 /* Ubuntu-MediumItalic.ttf in Resources */,
 				A7DA3AB0C224491EA318E745 /* Ubuntu-Regular.ttf in Resources */,
+				396C2DB70BA64B44BE1925DA /* BtnPlay.png in Resources */,
+				B5B7E36BECDE443BA7D3EC91 /* btnStop.png in Resources */,
+				E84CFEE0B13B45BAA909B9AB /* settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

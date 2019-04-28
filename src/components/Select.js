@@ -82,25 +82,26 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'Ubuntu-Regular',
         fontSize: 24,
-        paddingTop:20,
-        paddingBottom:20
+        paddingTop:10,
+        paddingBottom:10
     },
     options: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
+        
     },
     option: {
         fontSize: 20,
         fontFamily: 'Ubuntu-Regular',
-        padding: 10
+        padding:10
     },
     optionSelect: {
         fontSize: 20,
         fontFamily: 'Ubuntu-Regular',
         color: '#fff',
         backgroundColor: 'rgba(255,255,255, 0.6)',
-        padding: 10
+        padding:10
     },
 })
 

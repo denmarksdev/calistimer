@@ -11,7 +11,7 @@ import {
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
   EMOM: EMOMScreen
-}, { initialRouteName: 'Home' })
+}, { initialRouteName: 'EMOM' })
 
 export default createAppContainer(AppNavigator)
 
