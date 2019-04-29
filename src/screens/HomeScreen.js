@@ -14,7 +14,7 @@ const HomeScreen = props => {
             <Titulo label=' CalisTimer' style={styles.titulo} />
             <Button style={styles.btn} text='EMOM' onPress={() => props.navigation.navigate('EMOM')} />
             <Button style={styles.btn} text='AMRP' onPress={() => props.navigation.navigate('EMOM')} />
-            <Button style={styles.btn} text='Isometria' onPress={() => props.navigation.navigate('EMOM')} />
+            <Button style={styles.btn} text='Isometria' onPress={() => props.navigation.navigate('ISO')} />
         </View>
     )
 }

@@ -37,10 +37,8 @@ class EMOMScreen extends React.Component {
     }
 
     componentDidMount() {
-
         Sound.setCategory('Playback', true)
         this.alert = new Sound(alert)
-
 
         this.kbShow = Keyboard.addListener('keyboardDidShow', () => {
             this.setState({ keyboardIsVisible: true })
@@ -68,7 +66,6 @@ class EMOMScreen extends React.Component {
     }
 
     onPlay = () => {
-
         this.setState({
             isRunning: true,
             countdownValue: this.state.countdown === 1 ? 5 :0,
@@ -84,7 +81,6 @@ class EMOMScreen extends React.Component {
             })
         }
 
-        // check countdown
         if (this.state.countdown === 1) {
             this.alert.play()
             this.counterTimer = setInterval(() => {
@@ -102,8 +98,6 @@ class EMOMScreen extends React.Component {
         } else {
             this.countTimer = setInterval(count, SECONDS)
         }
-        // start count
-        // check countdown end
     }
 
     onStop = () => {

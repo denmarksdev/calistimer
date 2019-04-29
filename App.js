@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
 import EMOMScreen from './src/screens/EMOMScreen';
+import IsometriaScreen from './src/screens/IsometriaScreen';
 
 import {
   createStackNavigator,
@@ -10,7 +11,8 @@ import {
 
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
-  EMOM: EMOMScreen
+  EMOM: EMOMScreen,
+  ISO: IsometriaScreen
 }, { initialRouteName: 'Home' })
 
 export default createAppContainer(AppNavigator)
