@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
 import EMOMScreen from './src/screens/EMOMScreen';
+import AMRAPScreen from './src/screens/AMRAPScreen';
 import IsometriaScreen from './src/screens/IsometriaScreen';
 
 import {
+
   createStackNavigator,
   createAppContainer
 } from 'react-navigation'
@@ -12,8 +14,9 @@ import {
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
   EMOM: EMOMScreen,
-  ISO: IsometriaScreen
-}, { initialRouteName: 'Home' })
+  ISO: IsometriaScreen,
+  AMRAP: AMRAPScreen
+}, { initialRouteName: 'AMRAP' })
 
 export default createAppContainer(AppNavigator)
 
