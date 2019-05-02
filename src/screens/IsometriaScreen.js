@@ -17,6 +17,7 @@ import Titulo from '../components/Titulo';
 import Time from '../components/Time';
 import BackgroundProgress from '../components/BackgroundProgress';
 import Sound from 'react-native-sound'
+import KeepAwake from 'react-native-keep-awake';
 
 const alert = require('../../assets/sounds/alert.wav')
 
@@ -144,6 +145,7 @@ class IsomtriaScreen extends React.Component {
             return (
                 <BackgroundProgress percentage={percMinute} >
                     <View style={[{ flex: 1 }, { justifyContent: 'center' }]}>
+                        <KeepAwake />
                         <View style={{ flex: 1 }} >
                             <Titulo
                                 style={styles.title}
