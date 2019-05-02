@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator({
   EMOM: EMOMScreen,
   ISO: IsometriaScreen,
   AMRAP: AMRAPScreen
-}, { initialRouteName: 'AMRAP' })
+}, { initialRouteName: 'Home' })
 
 export default createAppContainer(AppNavigator)
 

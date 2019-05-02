@@ -21,7 +21,7 @@ import Sound from 'react-native-sound'
 
 const alert = require('../../assets/sounds/alert.wav')
 
-const SECONDS = 1000;
+const DEFAULT_SECONDS = 1000;
 class EMOMScreen extends React.Component {
 
     state = {
@@ -33,7 +33,8 @@ class EMOMScreen extends React.Component {
 
         isRunning: false,
         countdownValue: 5,
-        count: 0
+        count: 0,
+        paused: false,
     }
 
     componentDidMount() {
@@ -66,13 +67,22 @@ class EMOMScreen extends React.Component {
     }
 
     onPlay = () => {
+        this.setState({seconds:DEFAULT_SECONDS}, ()=> this.play())
+    }
+
+    play = () => {
         this.setState({
             isRunning: true,
-            countdownValue: this.state.countdown === 1 ? 5 :0,
-            count:0
+            countdownValue: this.state.countdown === 1 ? 5 : 0,
+            count: 0,
+            stoped: false,
         })
 
+
+        if (this.state.paused) return
+
         const count = () => {
+            if (this.state.paused) return
             this.shouldAlert()
             this.setState({ count: this.state.count + 1 }, () => {
                 if (this.state.count === (parseInt(this.state.time) * 60)) {
@@ -84,28 +94,44 @@ class EMOMScreen extends React.Component {
         if (this.state.countdown === 1) {
             this.alert.play()
             this.counterTimer = setInterval(() => {
+                if (this.state.paused) return
                 this.alert.play()
                 const { countdownValue } = this.state
                 if (countdownValue === 0) {
                     clearInterval(this.counterTimer)
                     this.setState({ countdownValue: 0 })
-                    this.countTimer = setInterval(count, SECONDS);
+                    this.countTimer = setInterval(count, this.state.seconds);
                 } else {
                     this.setState({ countdownValue: this.state.countdownValue - 1 })
                 }
 
-            }, SECONDS)
+            }, this.state.seconds)
         } else {
-            this.countTimer = setInterval(count, SECONDS)
+            this.countTimer = setInterval(count, this.state.seconds)
         }
     }
 
     onStop = () => {
         this.setState({
-            isRunning:false,
+            paused: !this.state.paused
         })
+    }
+
+    onRefresh = () => {
+        if (!this.state.paused) return
+        this.setState({ isRunning: false, count: 0, paused: false })
+        this.play()
+    }
+
+    onBack = () => {
+        if (!this.state.paused || !this.state.isRunning) return
         clearInterval(this.counterTimer)
         clearInterval(this.countTimer)
+        this.setState({ isRunning: false, count: 0, paused: false , seconds: DEFAULT_SECONDS})
+    }
+
+    onTest = () => {
+        this.setState({ seconds: 100 }, () => this.play())
     }
 
     render() {
@@ -114,13 +140,13 @@ class EMOMScreen extends React.Component {
             countdown,
             time,
             isRunning,
-            countdownValue,
             count
         } = this.state
 
         const percMinute = parseInt(((count % 60) / 60) * 100)
         const percTime = parseInt((count / 60) / parseInt(time) * 100)
         const timeToEnd = parseInt(time) * 60 - count
+        const opacity = !this.state.paused ? 0.6 : 1
 
         if (isRunning) {
             return (
@@ -137,20 +163,30 @@ class EMOMScreen extends React.Component {
                             <ProgressBar percentage={percTime} />
                             <Time time={timeToEnd} type='text2' text=' restantes' />
                         </View>
-                        <View style={{ flex: 1, justifyContent:'flex-end' }} >
-                            {
-                                countdownValue > 0 && countdown === 1
-                                    ? <Text style={styles.countdown} >{countdownValue} </Text>
-                                    : null
-                            }
-                            <TouchableOpacity onPress={this.onStop}>
-                                <Image
-                                    style={[styles.image, {alignSelf:'center', marginBottom:20} ] }
-                                    source={require('../../assets/images/btnStop.png')} />
-                            </TouchableOpacity>
+                        <View style={{ flex: 1, justifyContent: 'flex-end' }} >
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }} >
+                                <TouchableOpacity onPress={this.onBack}>
+                                    <Image
+                                        style={[styles.image, { alignSelf: 'center', marginBottom: 20, opacity }]}
+                                        source={require('../../assets/images/btnBack.png')} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.onStop}>
+                                    <Image
+                                        style={[styles.image, { alignSelf: 'center', marginBottom: 20 }]}
+                                        source={this.state.paused
+                                            ? require('../../assets/images/BtnPlay.png')
+                                            : require('../../assets/images/btnStop.png')
+                                        } />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.onRefresh}>
+                                    <Image
+                                        style={[styles.image, { alignSelf: 'center', marginBottom: 20, opacity }]}
+                                        source={require('../../assets/images/btnRefresh.png')} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </BackgroundProgress>
+                </BackgroundProgress >
             )
         }
 
@@ -182,12 +218,24 @@ class EMOMScreen extends React.Component {
                         value={time}
                         onChangeText={time => this.setState({ time })} />
                     <Text style={styles.subTitle} >minutos</Text>
-                    <View style={[styles.containerButton] }>
+                    <View style={[styles.containerButton]}>
+
+                        <TouchableOpacity onPress={() => {
+                            this.props.navigation.goBack()
+                        }}>
+                            <Image
+                                style={[styles.image, { alignSelf: 'center' }]}
+                                source={require('../../assets/images/btnBack.png')} />
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={this.onPlay}>
                             <Image
                                 style={styles.image}
                                 source={require('../../assets/images/BtnPlay.png')} />
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={this.onTest}>
+                            <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'Ubuntu-Normal' }} >Testar</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -229,7 +277,7 @@ const styles = StyleSheet.create({
     containerButton: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center'
     },
     countdown: {

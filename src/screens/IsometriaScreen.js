@@ -20,7 +20,7 @@ import Sound from 'react-native-sound'
 
 const alert = require('../../assets/sounds/alert.wav')
 
-const SECONDS = 1000;
+const DEFAULT_SECONDS = 1000;
 class IsomtriaScreen extends React.Component {
 
     state = {
@@ -96,7 +96,7 @@ class IsomtriaScreen extends React.Component {
     }
 
     onPlay = () => {
-        this.setState({ seconds: 1000 }, () => this.play())
+        this.setState({ seconds: DEFAULT_SECONDS }, () => this.play())
 
     }
 
@@ -117,7 +117,7 @@ class IsomtriaScreen extends React.Component {
         if (!this.state.isPaused || !this.state.isRunning) return
         clearInterval(this.counterTimer)
         clearInterval(this.countTimer)
-        this.setState({ isRunning: false, seconds: parseFloat({ ...SECONDS }) })
+        this.setState({ isRunning: false, seconds: parseFloat({ ...DEFAULT_SECONDS }) })
     }
 
     onTest = () => {

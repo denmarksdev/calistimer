@@ -21,7 +21,7 @@ import Sound from 'react-native-sound'
 
 const alert = require('../../assets/sounds/alert.wav')
 
-const SECONDS = 1000;
+const DEFAULT_SECONDS = 1000;
 class AMRAPScreen extends React.Component {
 
     state = {
@@ -31,10 +31,12 @@ class AMRAPScreen extends React.Component {
         countdown: 0,
         time: '1',
 
+        paused: false,
         isRunning: false,
         countdownValue: 5,
         count: 0,
-        repetitions: 0
+        repetitions: 0,
+        timeSeconds: 0
     }
 
     componentDidMount() {
@@ -66,16 +68,23 @@ class AMRAPScreen extends React.Component {
         }
     }
 
-    onPlay = () => {
+    play = () => {
         this.setState({
+            paused: false,
             isRunning: true,
             countdownValue: this.state.countdown === 1 ? 5 : 0,
-            count: 0
+            count: 0,
+            repetitions: 0,
         })
 
+        if (this.state.paused) return
+
         const count = () => {
+            if (this.state.paused) return
             this.shouldAlert()
+
             this.setState({ count: this.state.count + 1 }, () => {
+                if (this.state.paused) return
                 if (this.state.count === (parseInt(this.state.time) * 60)) {
                     clearInterval(this.countTimer)
                 }
@@ -85,29 +94,47 @@ class AMRAPScreen extends React.Component {
         if (this.state.countdown === 1) {
             this.alert.play()
             this.counterTimer = setInterval(() => {
+                if (this.state.paused) return
+
                 this.alert.play()
                 const { countdownValue } = this.state
                 if (countdownValue === 0) {
                     clearInterval(this.counterTimer)
                     this.setState({ countdownValue: 0 })
-                    this.countTimer = setInterval(count, SECONDS);
+                    this.countTimer = setInterval(count, this.state.timeSeconds);
                 } else {
                     this.setState({ countdownValue: this.state.countdownValue - 1 })
                 }
 
-            }, SECONDS)
+            }, this.state.timeSeconds)
         } else {
-            this.countTimer = setInterval(count, SECONDS)
+            this.countTimer = setInterval(count, this.state.timeSeconds)
         }
+    }
+
+    onPlay = () => {
+        this.setState({ timeSeconds: DEFAULT_SECONDS }, () => this.play())
     }
 
     onStop = () => {
         this.setState({
-            isRunning: false,
+            paused: !this.state.paused
         })
+    }
+
+    onRefresh = () => {
+        if (!this.state.paused) return
+        this.setState({ isRunning: false, count: 0, paused: false })
+        this.play()
+    }
+
+    onBack = () => {
+        if (!this.state.paused || !this.state.isRunning) return
         clearInterval(this.counterTimer)
         clearInterval(this.countTimer)
+        this.setState({ isRunning: false, count: 0, paused: false, timeSeconds:DEFAULT_SECONDS })
     }
+
 
     decrement = () => {
         if (this.state.repetitions > 0) {
@@ -120,6 +147,11 @@ class AMRAPScreen extends React.Component {
         this.setState({ repetitions: this.state.repetitions + 1 })
     }
 
+    onTest = () => {
+        this.setState({ timeSeconds: 100 }, () => this.play())
+    }
+
+
     render() {
         const {
             selectedAlerts,
@@ -128,7 +160,8 @@ class AMRAPScreen extends React.Component {
             isRunning,
             countdownValue,
             count,
-            repetitions
+            repetitions,
+            paused
         } = this.state
 
         const percMinute = parseInt(((count % 60) / 60) * 100)
@@ -136,6 +169,7 @@ class AMRAPScreen extends React.Component {
         const timeToEnd = parseInt(time) * 60 - count
         const media = (repetitions > 0 ? count / repetitions : 0).toFixed(0)
         const estimated = Math.floor((media > 0 ? (parseInt(time) * 60) / media : 0))
+        const opacity = !this.state.paused ? 0.6 : 1
 
         if (isRunning) {
             return (
@@ -184,11 +218,26 @@ class AMRAPScreen extends React.Component {
                                         </View>
                                 }
                             </View>
-                            <TouchableOpacity onPress={this.onStop}>
-                                <Image
-                                    style={[styles.image, { alignSelf: 'center', marginBottom: 20 }]}
-                                    source={require('../../assets/images/btnStop.png')} />
-                            </TouchableOpacity>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }} >
+                                <TouchableOpacity onPress={this.onBack}>
+                                    <Image
+                                        style={[styles.image, { alignSelf: 'center', marginBottom: 20, opacity }]}
+                                        source={require('../../assets/images/btnBack.png')} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.onStop}>
+                                    <Image
+                                        style={[styles.image, { alignSelf: 'center', marginBottom: 20 }]}
+                                        source={this.state.paused
+                                            ? require('../../assets/images/BtnPlay.png')
+                                            : require('../../assets/images/btnStop.png')
+                                        } />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.onRefresh}>
+                                    <Image
+                                        style={[styles.image, { alignSelf: 'center', marginBottom: 20, opacity }]}
+                                        source={require('../../assets/images/btnRefresh.png')} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </BackgroundProgress>
@@ -224,11 +273,23 @@ class AMRAPScreen extends React.Component {
                         onChangeText={time => this.setState({ time })} />
                     <Text style={styles.subTitle} >minutos</Text>
                     <View style={[styles.containerButton]}>
-                        <TouchableOpacity onPress={this.onPlay}>
+
+                        <TouchableOpacity onPress={() => {
+                            this.props.navigation.goBack()
+                        }}>
+                            <Image
+                                style={[styles.image, { alignSelf: 'center' }]}
+                                source={require('../../assets/images/btnBack.png')} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={ this.onPlay  }>
                             <Image
                                 style={styles.image}
                                 source={require('../../assets/images/BtnPlay.png')} />
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={this.onTest}>
+                            <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'Ubuntu-Normal' }} >Testar</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -270,7 +331,7 @@ const styles = StyleSheet.create({
     containerButton: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center'
     },
     countdown: {
