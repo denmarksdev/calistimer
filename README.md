@@ -35,3 +35,14 @@ Dentro da pasta principal ...
 2. No IOS execute o comando:
 
 `react-native run-ios`
+
+### Screenshots
+
+ ![](https://github.com/denmarksdev/calistimer/blob/master/screenshots/app1.png?raw=true "CalisTimer")
+ 
+  ![](https://github.com/denmarksdev/calistimer/blob/master/screenshots/app2.png?raw=true "CalisTimer")
+  
+  ![](https://github.com/denmarksdev/calistimer/blob/master/screenshots/app3.png?raw=true "CalisTimer")
+
+
+
