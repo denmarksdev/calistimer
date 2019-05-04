@@ -4,6 +4,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import EMOMScreen from './src/screens/EMOMScreen';
 import AMRAPScreen from './src/screens/AMRAPScreen';
 import IsometriaScreen from './src/screens/IsometriaScreen';
+import AboutScreen from './src/screens/AboutScreen';
 
 import {
 
@@ -15,7 +16,8 @@ const AppNavigator = createStackNavigator({
   Home: HomeScreen,
   EMOM: EMOMScreen,
   ISO: IsometriaScreen,
-  AMRAP: AMRAPScreen
+  AMRAP: AMRAPScreen,
+  About: AboutScreen
 }, { initialRouteName: 'Home' })
 
 export default createAppContainer(AppNavigator)

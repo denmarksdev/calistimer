@@ -15,6 +15,7 @@ const HomeScreen = props => {
             <Button style={styles.btn} text='EMOM' onPress={() => props.navigation.navigate('EMOM')} />
             <Button style={styles.btn} text='AMRAP' onPress={() => props.navigation.navigate('AMRAP')} />
             <Button style={styles.btn} text='Isometria' onPress={() => props.navigation.navigate('ISO')} />
+            <Button style={styles.btn} text='Sobre' onPress={() => props.navigation.navigate('About')} />
         </View>
     )
 }

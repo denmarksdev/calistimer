@@ -141,7 +141,8 @@ class EMOMScreen extends React.Component {
             countdown,
             time,
             isRunning,
-            count
+            count,
+            countdownValue
         } = this.state
 
         const percMinute = parseInt(((count % 60) / 60) * 100)
@@ -165,6 +166,11 @@ class EMOMScreen extends React.Component {
                             <ProgressBar percentage={percTime} />
                             <Time time={timeToEnd} type='text2' text=' restantes' />
                         </View>
+                        {
+                            countdownValue > 0 
+                            ? <Text style={styles.countdown} >{countdownValue} </Text>
+                            :null
+                        }
                         <View style={{ flex: 1, justifyContent: 'flex-end' }} >
                             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }} >
                                 <TouchableOpacity onPress={this.onBack}>
@@ -196,6 +202,7 @@ class EMOMScreen extends React.Component {
             ? { backgroundColor: 'orange' }
             : ''
 
+      
         return (
             <KeyboardAvoidingView style={styles.container} >
                 <ScrollView style={styles.container}>
@@ -220,6 +227,7 @@ class EMOMScreen extends React.Component {
                         value={time}
                         onChangeText={time => this.setState({ time })} />
                     <Text style={styles.subTitle} >minutos</Text>
+                    
                     <View style={[styles.containerButton]}>
 
                         <TouchableOpacity onPress={() => {
