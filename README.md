@@ -1,5 +1,5 @@
 # CalisTimer
-Aplicação auxilia o desenvolvimento de exercícios da Calistenia
+Aplicação auxilia o desenvolvimento de exercícios da [Calistenia](https://pt.wikipedia.org/wiki/Calistenia)
 
 ## Requerimentos 
 Para iniciar este projeto é necessário ter o [Node JS](https://nodejs.org/en/) e [React Native Cli](https://github.com/react-native-community/cli/tree/master/packages/global-cli)
